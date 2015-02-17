@@ -28,11 +28,12 @@ def build(**options):
         image_name = os.path.basename(tpl_path)
 
         if options["verbosity"] > 0:
-            print "Guessed image tag to be %s" % image_name
+            print "Guessed image tag to be \"%s\"" % image_name
 
     # Invoke docker build and pre/post scripts
     try:
         if os.path.exists(build_path("pre.dkt")):
+            print "Step dkt.pre"
             run(["./pre.dkt"], cwd=build_path)
 
         build_args = ["build", "-t", image_name]
@@ -46,7 +47,8 @@ def build(**options):
         docker(*build_args, **options)
 
         if os.path.exists(build_path("post.dkt")):
-            run(["./post.dkt"], cwd=build_path)
+            print "Step dkt.post"
+            run(["./post.dkt", image_name], cwd=build_path)
     except:
         print "Image build failed!"
         raise
