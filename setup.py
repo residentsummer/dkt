@@ -6,7 +6,7 @@ setup(name='dkt',
       packages=find_packages(),
       install_requires=[
           'requests',
-          'ConfigArgParse'
+          'ConfigArgParse>=0.11.0'
       ],
       entry_points={'console_scripts': ['dkt=dkt.cli:main']},
       url='http://github.com/residentsummer/dkt',
